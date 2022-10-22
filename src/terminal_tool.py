@@ -7,10 +7,20 @@ from ttkbootstrap.constants import *
 from ttkbootstrap.scrolled import ScrolledText, ScrolledFrame
 
 
-def call(res_text, sp, func):
+def call(res_text, sp: subprocess.Popen, func):
+    try:
+        rc = sp.wait(1)
+        raise subprocess.CalledProcessError(rc, sp)
+    except Exception as e:
+        tmp = f"[-] process start error: {e}\n[-]请检查参数是否缺失.\n"
+        print(tmp)
+        res_text.insert(END, tmp)
+        func()
+    if sp.poll() is not None:
+        return
     for i in iter(sp.stdout.readline, b''):
         tmp = re.sub(r"\x1b\[.?.?m", '', i.decode())
-        print(sp.poll())
+
         if sp.poll() is None and tmp != '':
             print(tmp)
             res_text.insert(END, tmp)
@@ -23,6 +33,7 @@ def call(res_text, sp, func):
             break
 
 
+
 class TerminalToolWindow:
     Frame: ttk.Frame = None
     result_text: ScrolledText = None
@@ -32,18 +43,18 @@ class TerminalToolWindow:
     sp: subprocess.Popen = None
 
     must_args = []
-    nomust_input_args = []
-    nomust_noinput_args = []
+    input_args = []
+    option_args = []
 
     def __init__(self, config):
         self.name = config['name']
         self.run_cmd = config['run_cmd']
-        if 'must_args' in config:
-            self.must_args = config['must_args']
-        if 'nomust_input_args' in config:
-            self.nomust_input_args = config['nomust_input_args']
-        if 'nomust_noinput_args' in config:
-            self.nomust_noinput_args = config['nomust_noinput_args']
+        option_args = 'option_args'
+        input_args = 'input_args'
+        if option_args in config:
+            self.option_args = config[option_args]
+        if input_args in config:
+            self.input_args = config[input_args]
 
     def init(self, notebook):
         self.Frame = ttk.Frame(notebook)
@@ -60,43 +71,34 @@ class TerminalToolWindow:
         option_frame = ttk.Frame(option, padding=5, borderwidth=1, relief='ridge')
         option_frame.pack(side=BOTTOM, fill=BOTH, expand=True)
 
-        # 必选参数组
-        must_arg_group = ttk.Frame(option_frame, padding=5)
-        must_arg_group.pack(side=TOP, fill=X, pady=10, expand=YES)
-        for arg in self.must_args:
-            must_frame = ttk.Frame(must_arg_group, padding=5)
-            must_frame.pack(side=TOP, fill=X)
-            arg['arg_text'] = ttk.StringVar(value=arg['arg_text'])
-            arg['arg_enable'] = ttk.BooleanVar(value=arg['arg_enable'])
-            ttk.Label(must_frame, text=arg['arg_more'])\
-                .pack(side=LEFT, fill=X, padx=(0, 5))
-            ttk.Entry(must_frame, textvariable=arg['arg_text']) \
-                .pack(side=RIGHT, fill=X, padx=(5, 0), expand=YES)
+        # 运行按钮
+        button_group = ttk.Frame(option_frame, padding=5)
+        button_group.pack(side=TOP, fill=X, pady=10, expand=YES)
 
-        self.run_button = ttk.Button(must_arg_group, text="Run", command=self.run)
+        self.run_button = ttk.Button(button_group, text="Run", command=self.run)
         self.run_button.pack(side=LEFT, fill=X, expand=YES, padx=(0, 5))
         # Stop Button
-        ttk.Button(must_arg_group, text="Stop", command=self.end)\
+        ttk.Button(button_group, text="Stop", command=self.end)\
             .pack(side=LEFT, fill=X, expand=YES, padx=(5, 5))
         # Clear Button
-        ttk.Button(must_arg_group, text="Clear", command=self.clear)\
+        ttk.Button(button_group, text="Clear", command=self.clear)\
             .pack(side=LEFT, fill=X, expand=YES)
         # 可选参数组
-        nomust_arg_group = ttk.Frame(option_frame, padding=5)
-        nomust_arg_group.pack(side=TOP, fill=X, pady=10, expand=YES)
+        arg_group = ttk.Frame(option_frame, padding=5)
+        arg_group.pack(side=TOP, fill=X, pady=10, expand=YES)
 
         # 选项参数
-        for arg in self.nomust_noinput_args:
+        for arg in self.option_args:
             arg['arg_enable'] = ttk.BooleanVar(value=arg['arg_enable'])
-            ttk.Checkbutton(nomust_arg_group, text=arg['arg_more'], variable=arg['arg_enable'], onvalue=True,
+            ttk.Checkbutton(arg_group, text=arg['arg_more'], variable=arg['arg_enable'], onvalue=True,
                             offvalue=False, bootstyle='round-toggle') \
                 .pack(side=TOP, fill=X, ipady=5, ipadx=5)
 
         # 输入参数
-        for arg in self.nomust_input_args:
+        for arg in self.input_args:
             arg['arg_text'] = ttk.StringVar(value=arg['arg_text'])
             arg['arg_enable'] = ttk.BooleanVar(value=arg['arg_enable'])
-            arg_frame = ttk.Frame(nomust_arg_group)
+            arg_frame = ttk.Frame(arg_group)
             arg_frame.pack(side=TOP, fill=X, pady=5)
             ttk.Checkbutton(arg_frame, text=arg['arg_more'], variable=arg['arg_enable'], onvalue=True, offvalue=False) \
                 .pack(side=LEFT, fill=X, ipady=5, padx=(0, 5), anchor=NW)
@@ -126,16 +128,13 @@ class TerminalToolWindow:
         self.run_button.configure(text="Running")
         arg_str = " "
 
-        for must_arg in self.must_args:
-            arg_str += must_arg['arg_name']
-            arg_str += must_arg['arg_text'].get()
-            arg_str += " "
-
-        for i in self.nomust_noinput_args:
+        # 添加选项参数
+        for i in self.option_args:
             if i['arg_enable'].get():
                 arg_str += i['arg_name']
 
-        for i in self.nomust_input_args:
+        # 添加输入参数
+        for i in self.input_args:
             if i['arg_enable'].get():
                 arg_str += i['arg_name']
                 arg_str += i['arg_text'].get()
@@ -158,8 +157,6 @@ class TerminalToolWindow:
                 self.sp.kill()
                 self.result_text.insert(END, end_str)
                 self.result_text.text.yview_moveto(1)
-                self.run_button['state'] = 'active'
-                self.run_button.configure(text="Run")
             else:
                 self.sp = None
                 end_str = "[*] No work now, I advise you to be honest.\n"
@@ -167,6 +164,8 @@ class TerminalToolWindow:
         else:
             end_str = "[*] What are you fucking doing?\n"
             self.result_text.insert(END, end_str)
+        self.run_button['state'] = 'active'
+        self.run_button.configure(text="Run")
 
     def clear(self):
         self.result_text.delete("1.0", END)

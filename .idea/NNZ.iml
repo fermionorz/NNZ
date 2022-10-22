@@ -14,7 +14,7 @@
       <excludeFolder url="file://$MODULE_DIR$/res/runs/Goby/resources/app.asar.unpacked/node_modules/electron-sudo/src/lib" />
       <excludeFolder url="file://$MODULE_DIR$/res/runs/Goby/resources/app.asar.unpacked/node_modules/electron-sudo/dist" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (NNZ) (2)" jdkType="Python SDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">

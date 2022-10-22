@@ -7,8 +7,10 @@ TOML格式的配置文件很简单，可以复制现有的模板修改。
 包含各种工具的完全体过大，第三方应用的安全性也不能保障，因此Github上面就只能存放一下配置文件。
 
 配置起来也很简单，宁配吗？
-- 配: 请参考下方使用手册？
-- 不配：[百度网盘]("https://pan.baidu.com")   (暂时还没有)
+
+- 配: 请参考下方使用手册
+
+- 不配：[百度网盘](https://pan.baidu.com)   (暂时还没有)
 
 ## 0x1.目录
 
@@ -204,27 +206,27 @@ start /b "AntSword" "AntSword-Loader/AntSword.exe"
 ```toml
 name = "dirsearch"          # 在界面中显示的名称
 # 拼接的命令行参数为： "[ppname] [pname] [args]"
-pname = "dirsearch.py"      # 如果有选项类参数，直接加到这里，后面会以gobuster为例说明。
+pname = "dirsearch.py"      # 
 ppname = "python3"          # exe类的可以填"None"，这里是从env.toml中获取"python3"的路径
 
-[[must_args]]               # 设置为必选参数，其实也可以没有
+[[input_args]]              # 设置为必选参数，其实也可以没有
 arg_name = "-u "            # 参数，记得带一个空格，原因等下会解释
 arg_more = "添加目标url"     # 参数解释，显示在界面中，不要写的太长
 arg_text = "https://127.0.0.1"  # 参数默认值
 arg_enable = true
 
-[[nomust_noinput_args]]     # 可选选项参数1
+[[option_args]]             # 可选选项参数1
 arg_name = "-q "            # 参数，带空格
 arg_more = "[必须开启]安静模式" # 参数介绍
 arg_enable = true           # 参数默认是否启用
 
-[[nomust_input_args]]       # 可选输入参数
+[[option_args]]             # 可选输入参数
 arg_name = "-w "            # 参数，带空格
 arg_more = "选择字典"      # 参数介绍
 arg_text = "res/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt"    # 参数默认值，相对nnz.exe的路径就可以，也可以用绝对路径。
 arg_enable = true           # 参数默认是否开启
 
-[[nomust_input_args]]       # 可选输入参数2
+[[input_args]]              # 可选输入参数2
 arg_name = "--timeout="     # 参数，不用带空格(前面的参数需要带空格是因为这个)
 arg_more = "设置超时时间"    # 参数介绍
 arg_text = "3"              # 参数默认值
@@ -234,56 +236,124 @@ arg_enable = false          # 参数默认是否开启
 
 文件名可以用空格
 
-* NNZ/res/terminal_tools/gobuster dir/ (目录可以有空格)  
+* NNZ/res/terminal_tools/gobuster/ (目录可以有空格)  
     * gobuster.exe
-    * gobuster dir.toml (要这样命名)
+    * gobuster.toml (要这样命名)
 
 gobuster dir.toml
 ```toml
-name = "gobuster dir"
-pname = "gobuster.exe dir --no-color"   # 这里可以这样填
-ppname = "None"                         # 这里填None
+name = "gobuster"
+pname = "gobuster.exe"
+ppname = "None"
 
-[[must_args]]
+[[option_args]]
+arg_name = "dns "
+arg_more = "[1]子域名爆破"       # 多种模式，可以标记序号，区分各自参数
+arg_enable = false
+
+[[option_args]]
+arg_name = "dir "
+arg_more = "[2]目录爆破"
+arg_enable = true
+
+[[option_args]]
+arg_name = "vhost "
+arg_more = "[3]虚拟主机爆破"
+arg_enable = false
+
+[[option_args]]
+arg_name = "fuzz "
+arg_more = "[4]模糊测试"
+arg_enable = false
+
+[[option_args]]
+arg_name = "-i "
+arg_more = "[1]显示IP"
+arg_enable = false
+
+[[input_args]]
+arg_name = "-d "
+arg_more = "[1]指定域名"
+arg_text = "baidu.com"
+arg_enable = false
+
+[[input_args]]
+arg_name = "-r "
+arg_more = "[1]指定dns服务器"
+arg_text = "114.114.114.114"
+arg_enable = false
+
+[[input_args]]
 arg_name = "-u "
-arg_more = "输入url"
+arg_more = "[2]指定Url"
 arg_text = "http://127.0.0.1"
 arg_enable = true
 
-[[must_args]]
+[[option_args]]
+arg_name = "-k "
+arg_more = "[2]跳过tls验证"
+arg_enable = true
+
+[[option_args]]
+arg_name = "-n "
+arg_more = "[2]不显示状态码"
+arg_enable = false
+
+[[option_args]]
+arg_name = "-v "
+arg_more = "[2]详细输出"
+arg_enable = true
+
+[[option_args]]
+arg_name = "-e "
+arg_more = "[2]显示完整url"
+arg_enable = true
+
+[[input_args]]
+arg_name = "-u "
+arg_more = "[3]指定主机"
+arg_text = "baidu.com"
+arg_enable = false
+
+[[input_args]]
+arg_name = "-u "
+arg_more = "[4]指定url"
+arg_text = "http://127.0.0.1/tag.php?id=test"
+arg_enable = false
+
+[[input_args]]
 arg_name = "-w "
 arg_more = "选择字典"
-arg_text = "res/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt"
+arg_text = "res/wordlist/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt"
 arg_enable = true
 
-[[nomust_noinput_args]]
-arg_name = "--no-progress "
-arg_more = "[必须开启]不显示进度条"
-arg_enable = true
-
-[[nomust_input_args]]
-arg_name = "-b "
-arg_more = "过滤状态码"
-arg_text = "404,502,301"
+[[input_args]]
+arg_name = "-t "
+arg_more = "线程数量"
+arg_text = "32"
 arg_enable = false
 
-[[nomust_input_args]]
-arg_name = "--proxy "
-arg_more = "使用代理"
-arg_text = "http://127.0.0.1:1080"
-arg_enable = false
-
-[[nomust_input_args]]
-arg_name = "--timeout="
+[[input_args]]
+arg_name = "--timeout "
 arg_more = "超时时间"
-arg_text = "3"
+arg_text = "1"
 arg_enable = false
 
-[[nomust_input_args]]
+[[input_args]]
 arg_name = "-o "
 arg_more = "输出位置"
 arg_text = ""
 arg_enable = false
+
+[[option_args]]
+arg_name = "-z "
+arg_more = "不显示进度"
+arg_enable = true
+
+[[option_args]]
+arg_name = "--no-color "
+arg_more = "去掉输出颜色"
+arg_enable = true
 ```
 
 ### NNZ/res/simple_tools

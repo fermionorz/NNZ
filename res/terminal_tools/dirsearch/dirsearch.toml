@@ -1,32 +1,48 @@
 name = "dirsearch"
-pname = "dirsearch.py -q"
+pname = "dirsearch.py"
 ppname = "python3"
 
-[[must_args]]
-arg_name = "-u "
-arg_more = "添加目标url"
-arg_text = "https://127.0.0.1"
+[[option_args]]
+arg_name = "-q "
+arg_more = "关闭进度显示"
 arg_enable = true
 
-[[nomust_noinput_args]]
+[[option_args]]
 arg_name = "-r "
 arg_more = "递归扫描"
 arg_enable = false
 
-[[nomust_input_args]]
+[[option_args]]
+arg_name = "--random-agent "
+arg_more = "添加随机user-agent"
+arg_enable = true
+
+[[input_args]]
+arg_name = "-u "
+arg_more = "[+]添加目标url"
+arg_text = "http://127.0.0.1"
+arg_enable = true
+
+[[input_args]]
 arg_name = "-x "
 arg_more = "过滤状态码"
 arg_text = "404,502,301"
 arg_enable = true
 
-[[nomust_input_args]]
+[[input_args]]
 arg_name = "--exclude-size="
 arg_more = "过滤指定大小返回包"
 arg_text = "2KB"
 arg_enable = true
 
-[[nomust_input_args]]
+[[input_args]]
 arg_name = "-w "
 arg_more = "选择字典"
-arg_text = "res/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt"
+arg_text = "res/wordlist/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt"
 arg_enable = false
+
+[[input_args]]
+arg_name = "-o "
+arg_more = "输出目录"
+arg_text = "./nul"
+arg_enable = true

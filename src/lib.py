@@ -29,18 +29,14 @@ def get_terminal_tools_config(terminal_tools_path=f"res/terminal_tools"):
         else:
             run_cmd = f"{env_config[v['ppname']]} {terminal_tools_path}/{v['name']}/{v['pname']}"
         v['run_cmd'] = run_cmd
-        a = {1:2}
-        a.keys()
-        if 'must_agrs' in v:
-            for vv in v['must_args']:
+
+        option_args, input_args = 'option_args', 'input_args'
+        if option_args in v:
+            for vv in v[option_args]:
                 vv['arg_more'] += f"({vv['arg_name'].replace(' ', '')})"
 
-        if 'nomust_noinput_args' in v:
-            for vv in v['nomust_noinput_args']:
-                vv['arg_more'] += f"({vv['arg_name'].replace(' ', '')})"
-
-        if 'nomust_input_args' in v:
-            for vv in v['nomust_input_args']:
+        if input_args in v:
+            for vv in v[input_args]:
                 vv['arg_more'] += f"({vv['arg_name'].replace(' ', '')})"
     return config
 
