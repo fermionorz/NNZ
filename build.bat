@@ -1,0 +1,1 @@
+pyinstaller -F -w -i res\images\logo.png --distpath . nnz.py
