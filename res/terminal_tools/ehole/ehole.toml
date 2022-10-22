@@ -1,0 +1,45 @@
+name = "ehole"
+pname = "ehole.exe finger"
+ppname = "None"
+
+[[nomust_input_args]]
+arg_name = "-u "
+arg_more = "识别单个Url"
+arg_text = "http://baidu.com"
+arg_enable = true
+
+[[nomust_input_args]]
+arg_name = "-l "
+arg_more = "从文件读取列表，批量识别"
+arg_text = "1.txt"
+arg_enable = false
+
+[[nomust_input_args]]
+arg_name = "-t "
+arg_more = "线程数量"
+arg_text = "32"
+arg_enable = true
+
+[[nomust_input_args]]
+arg_name = "-p "
+arg_more = "使用代理"
+arg_text = "http://127.0.0.1:8080"
+arg_enable = false
+
+[[nomust_input_args]]
+arg_name = "-o "
+arg_more = "输出结果，当前仅支持json和xlsx后缀的文件"
+arg_text = ""
+arg_enable = false
+
+[[nomust_input_args]]
+arg_name = "-f "
+arg_more = "从fofa提取支持ip或者ip段，进行指纹识别"
+arg_text = "192.168.1.1/24"
+arg_enable = false
+
+[[nomust_input_args]]
+arg_name = "-s "
+arg_more = "支持fofa所有语法提取资产，进行指纹识别，"
+arg_text = "domain='qq.com'"
+arg_enable = false

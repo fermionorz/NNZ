@@ -1,0 +1,52 @@
+name = "gobuster dir"
+pname = "gobuster.exe dir "
+ppname = "None"
+
+[[must_args]]
+arg_name = "-u "
+arg_more = "输入url"
+arg_text = "http://127.0.0.1"
+arg_enable = true
+
+[[must_args]]
+arg_name = "-w "
+arg_more = "选择字典"
+arg_text = "res/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt"
+arg_enable = true
+
+[[nomust_noinput_args]]
+arg_name = "--no-progress "
+arg_more = "[必须开启]不显示进度条"
+arg_enable = true
+
+[[nomust_noinput_args]]
+arg_name = "--no-color "
+arg_more = "去掉输出颜色"
+arg_enable = true
+
+[[nomust_input_args]]
+arg_name = "-b "
+arg_more = "过滤状态码"
+arg_text = "404,502,301"
+arg_enable = false
+
+[[nomust_input_args]]
+arg_name = "--proxy "
+arg_more = "使用代理"
+arg_text = "http://127.0.0.1:1080"
+arg_enable = false
+
+[[nomust_input_args]]
+arg_name = "--timeout="
+arg_more = "超时时间"
+arg_text = "3"
+arg_enable = false
+
+[[nomust_input_args]]
+arg_name = "-o "
+arg_more = "输出位置"
+arg_text = ""
+arg_enable = false
+
+
+

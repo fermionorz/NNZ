@@ -127,12 +127,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-# NNZ
-!res/runs/*/*.bat
-!res/terminal_tools/*/*.toml
-
-res/runs/*
-res/terminal_tools/*
-res/simple_tools/*
-res/wordlist/*

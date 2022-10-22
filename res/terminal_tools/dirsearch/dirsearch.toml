@@ -1,0 +1,32 @@
+name = "dirsearch"
+pname = "dirsearch.py -q"
+ppname = "python3"
+
+[[must_args]]
+arg_name = "-u "
+arg_more = "添加目标url"
+arg_text = "https://127.0.0.1"
+arg_enable = true
+
+[[nomust_noinput_args]]
+arg_name = "-r "
+arg_more = "递归扫描"
+arg_enable = false
+
+[[nomust_input_args]]
+arg_name = "-x "
+arg_more = "过滤状态码"
+arg_text = "404,502,301"
+arg_enable = true
+
+[[nomust_input_args]]
+arg_name = "--exclude-size="
+arg_more = "过滤指定大小返回包"
+arg_text = "2KB"
+arg_enable = true
+
+[[nomust_input_args]]
+arg_name = "-w "
+arg_more = "选择字典"
+arg_text = "res/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt"
+arg_enable = false

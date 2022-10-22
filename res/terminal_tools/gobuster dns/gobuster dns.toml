@@ -1,0 +1,46 @@
+name = "gobuster dns"
+pname = "gobuster.exe dns "
+ppname = "None"
+
+[[must_args]]
+arg_name = "-d "
+arg_more = "输入域名"
+arg_text = "baidu.com"
+arg_enable = true
+
+[[must_args]]
+arg_name = "-w "
+arg_more = "选择字典"
+arg_text = "res/SecLists/Discovery/DNS/subdomains-top1million-5000.txt"
+arg_enable = true
+
+[[nomust_noinput_args]]
+arg_name = "-z "
+arg_more = "[必须开启]不显示进度条"
+arg_enable = true
+
+[[nomust_noinput_args]]
+arg_name = "--no-color "
+arg_more = "去掉输出颜色"
+arg_enable = true
+
+[[nomust_input_args]]
+arg_name = "--timeout "
+arg_more = "超时时间"
+arg_text = "1s"
+arg_enable = false
+
+[[nomust_input_args]]
+arg_name = "-t "
+arg_more = "设置线程数量"
+arg_text = "10"
+arg_enable = false
+
+[[nomust_input_args]]
+arg_name = "-o "
+arg_more = "输出位置"
+arg_text = ""
+arg_enable = false
+
+
+

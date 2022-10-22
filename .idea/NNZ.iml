@@ -3,6 +3,16 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/res/env/jdk8" />
+      <excludeFolder url="file://$MODULE_DIR$/res/env/jdk11" />
+      <excludeFolder url="file://$MODULE_DIR$/res/env/python3" />
+      <excludeFolder url="file://$MODULE_DIR$/res/runs/AntSword/antSword/antData" />
+      <excludeFolder url="file://$MODULE_DIR$/res/runs/BurpSuite/Extesions/flow/javadoc/jquery/jszip/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/res/runs/BurpSuite/Extesions/flow/javadoc/jquery/jszip-utils/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/res/runs/FileCp/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/res/runs/Goby/extensions/009cce9af289380ce8e39f39b662e920/src/assets/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/res/runs/Goby/resources/app.asar.unpacked/node_modules/electron-sudo/src/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/res/runs/Goby/resources/app.asar.unpacked/node_modules/electron-sudo/dist" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.9 (NNZ) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
