@@ -8,15 +8,8 @@ from ttkbootstrap.scrolled import ScrolledText, ScrolledFrame
 
 
 def call(res_text, sp: subprocess.Popen, func):
-    try:
-        rc = sp.wait(1)
-        raise subprocess.CalledProcessError(rc, sp)
-    except Exception as e:
-        tmp = f"[-] process start error: {e}\n[-]请检查参数是否缺失.\n"
-        print(tmp)
-        res_text.insert(END, tmp)
+    if sp.stderr is not None:
         func()
-    if sp.poll() is not None:
         return
     for i in iter(sp.stdout.readline, b''):
         tmp = re.sub(r"\x1b\[.?.?m", '', i.decode())

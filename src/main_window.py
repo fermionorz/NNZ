@@ -52,15 +52,18 @@ class MainWindow:
         runs_frame = ttk.Frame(self.runc_frame, padding=10, borderwidth=1, relief='ridge')
         runs_frame.pack(fill=BOTH, expand=YES, padx=5, pady=5)
         num = len(self.apps)
-        (x, y) = (4, 3)         # 屏幕比例: x:y = 4:3
+        x, y = 4, 3             # 屏幕比例: x:y = 4:3
         addr_x, addr_y = 0, 0   # 摆放位置标记变量
 
-        for i in range(num//(x*y)+2):
-            if x * i + y * i > num:
-                (x, y) = (4*i, 3*i)
+        for i in range(num//7+2):
+            n = x * i * y * i
+            if n > num:
+                break
 
-        relw = 1 / ((4 / 3) * x + 1/3)  # 相对父容器的宽度
-        relh = 1 / ((4 / 3) * y + 1/3)     # 相对父容器的高度
+        x = 4 * i
+        y = 3 * i
+        relw = 1 / ((5 / 4) * x + 1/4)  # 相对父容器的宽度
+        relh = 1 / ((5 / 4) * y + 1/4)     # 相对父容器的高度
 
         for i, (name, app_exec, app_img) in enumerate(self.apps):
 
@@ -68,8 +71,8 @@ class MainWindow:
             logo = ImageTk.PhotoImage(img.resize((80, 80)))     # 统一logo大小
             button = ttk.Button(runs_frame, image=logo, text=name, compound=tk.TOP, command=lambda cmd=app_exec: os.system(cmd), style="COMMAND, OUTLINE")
 
-            relx = (4/3) * addr_x * relw + (1/3) * relw
-            rely = (4/3) * addr_y * relh + (1/3) * relh
+            relx = (5/4) * addr_x * relw + (1/4) * relw
+            rely = (5/4) * addr_y * relh + (1/4) * relh
             button.place(anchor=NW, relheight=relh, relwidth=relw, relx=relx, rely=rely)
 
             if i % x == x-1:
@@ -99,12 +102,8 @@ class MainWindow:
 
     def init_about(self):
         self.about_frame = ttk.Frame(self.__root)
-
-        tk.Label(self.about_frame,
-                  font=(None, 18),
-                  justify=CENTER,
-                  text="I'm Zer0-hex\n\nGithub: https://Github.com/Zer0-hex\n\nMy blog: https://Zer0-hex.github.io\n\nMy email: Zer0-hex@outlook.com")\
-            .pack(side=TOP, fill=BOTH, expand=YES)
+        about_str = "I'm Zer0-hex\n\nEmail: Zer0-hex@outlook.com\n\nBlog: https://Zer0-hex.github.io\n\nGithub: https://Github.com/Zer0-hex\n\n"
+        tk.Label(self.about_frame, font=(None, 18), justify=CENTER, text=about_str).pack(side=TOP, fill=BOTH, expand=YES)
 
     def change_frame(self, frame):
         if self.frame_show is not frame:
