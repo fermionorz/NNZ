@@ -28,14 +28,15 @@ TOML格式的配置文件很简单，可以复制现有的模板修改。
         * java.exe
         * javaw.exe
     * **env.toml**
-  * runs/
+  * common_tools/
     * BurpSuite/
       * BurpSuite.bat
       * BurpSuite.png
     * \*
   * **simple_tools/**
+  * **other_tools/**
+  * extensions
   * **terminal_tools/**
-  * **crypto_tools/**
     * dirsearch/
       * dirsearch.py
       * dirsearch.toml
@@ -60,7 +61,7 @@ jdk11
 env.toml
 ```
 
-### NNZ/res/runs/
+### NNZ/res/common_tools/
 
 > 用户存放启动器相关文件。
 
@@ -96,9 +97,9 @@ dirsearch/
     *
 ```
 
-### NNZ/res/crypto_tools
+### NNZ/res/extensions
 
-> 编码加密模块，这个计划得往后稍稍了。
+> 存放工具插件
 
 ### NNZ/res/wordlist/
 
@@ -110,6 +111,10 @@ https://github.com/scipag/password-list/
 https://github.com/danielmiessler/SecLists/
 https://github.com/Legoclones/password-cracking
 ```
+
+### NNZ/res/other_tools
+
+> 存放其他工具
 
 ### NNZ/res/images/
 
@@ -131,11 +136,11 @@ python3 = "res/env/python3/python.exe"
 None = ''
 ```
 
-### NNZ/res/runs/
+### NNZ/res/common_tools/
 > 目录下方必须要有与目录**同名**的.bat、.png文件: 
 
-- NNZ/res/runs/[name]/[name].bat
-- NNZ/res/runs/[name]/[name].png
+- NNZ/res/common_tools/[name]/[name].bat
+- NNZ/res/common_tools/[name]/[name].png
 
 ```
 cd /d %~dp0     # 此命令的作用是切换到脚本所在目录
@@ -360,6 +365,25 @@ arg_enable = true
 
 > 暂无
 
-### NNZ/res/crypto_tools
+### NNZ/res/other_tools
 
-> 暂无
+> 存放其他工具，只需要创建文件夹。
+
+* NNZ/res/other_tools
+  * 信息收集
+    * InScan/
+      * start.bat
+  * 后渗透
+  * 杂项
+  * 漏洞利用
+  * 蓝队工具
+
+需要在对应工具目录下存在Start.bat文件用于调用。
+
+例如: NNZ/res/other_tools/信息收集/fofaviewer/start.bat
+
+- start.bat
+```
+cd /d %~dp0
+Start /b "fofaviewer" "../../../env/jdk8/bin/javaw.exe" "-jar" "fofaviewer.jar"
+```

@@ -1,12 +1,12 @@
 # NNZ
 
-> 重保的告警数量还可以，写写工具，看看S12，慢慢长夜很快就过去了。
-
 ## 简介
 
-一款模块化工具，可以为命令行工具提供通用GUI界面。让你拥有自己喜欢的工具包。不论是在虚拟机里！还是装在U盘里！都可即插即用！
+个人工具包的解决方案，可以集成各种工具，同时为终端工具提供通用GUI界面。
 
-技术栈：Python + tkinter + toml 
+技术栈：Python + tkinter + ttkbootstrap + toml 
+
+有任何问题欢迎提Issue !!!
 
 另外，作为一个Linuxer，我还是很喜欢终端界面的🤭
 
@@ -42,14 +42,19 @@ build.bat
 
 ## 主要功能
 
-* 启动器 (把其他有GUI界面的工具集成一下) ~随便加了几个工具，没别的意思~
+* 常用工具
 
-![image](assets/runs.png)
+![image](assets/1.png)
 
 * 渗透小工具 (现在还什么都没有，牛奶会有的，面包也会有的)
 
 ![image](assets/simple_tools.png)
 
-* 命令行工具 (通用GUI界面，只需要写一份极其简单的配置文件即可，摆脱了在命令行里面切换各种目录的繁琐。)
+* 终端工具 (通用GUI界面，只需要写一份极其简单的配置文件即可，摆脱了在命令行里面切换各种目录的繁琐。)
 
-![image](assets/terminal_tools.png)
+![image](assets/3.png)
+
+* 其他工具 (后面几个菜单都属于其他工具，可以自行分类、添加)
+
+![image](assets/4.png)
+![image](assets/5.png)
