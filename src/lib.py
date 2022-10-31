@@ -2,11 +2,12 @@ import os
 import toml
 
 
-def get_runs_config(runs_path=f"res/runs"):
+def get_runs_config():
+    path = "res/common_tools"
     config = []
-    for v in os.listdir(runs_path):
-        app_exec = f"res\\runs\\{v}\\{v}.bat"   # 启动脚本
-        app_img = f"res/runs/{v}/{v}.png"       # logo
+    for v in os.listdir(path):
+        app_exec = f"res\\common_tools\\{v}\\{v}.bat"   # 启动脚本
+        app_img = f"res/common_tools/{v}/{v}.png"       # logo
         config.append((v, app_exec, app_img))
     return config
 
@@ -41,4 +42,20 @@ def get_terminal_tools_config(terminal_tools_path=f"res/terminal_tools"):
     return config
 
 
+def get_other_tools_config(path="res/other_tools/"):
 
+    try:
+        other_tools = os.listdir(path)
+    except:
+        os.mkdir(path)
+    configs = {}
+    for i in other_tools:
+        temp = os.listdir(path+i)
+        configs[i] = temp
+    return configs
+
+
+if __name__ == '__main__':
+    res = get_other_tools_config(path="../res/other_tools/")
+
+    print(res)

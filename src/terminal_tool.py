@@ -26,7 +26,6 @@ def call(res_text, sp: subprocess.Popen, func):
             break
 
 
-
 class TerminalToolWindow:
     Frame: ttk.Frame = None
     result_text: ScrolledText = None

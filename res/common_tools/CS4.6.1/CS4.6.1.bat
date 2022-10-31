@@ -1,0 +1,2 @@
+cd /d %~dp0
+Start /B "CobaltStrike4.5" "../../env/jdk11/bin/javaw.exe" "-Dfile.encoding=UTF-8" "-XX:ParallelGCThreads=4" "-XX:+AggressiveHeap" "-XX:+UseParallelGC" "-Duser.language=en" "-jar" "cobaltstrike-client.jar"
